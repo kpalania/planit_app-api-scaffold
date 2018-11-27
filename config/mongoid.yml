@@ -1,0 +1,32 @@
+defaults: &defaults
+  dynamic_attributes: true
+  hosts:
+    - localhost:27017
+
+development:
+  sessions:
+    default:
+      <<: *defaults
+      database: plan_api_scaffold_dev
+      options:
+        read: :primary
+
+test:
+  sessions:
+    default:
+      <<: *defaults
+      database: plan_api_scaffold_test
+      options:
+        read: :primary
+
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGODB_URL'] %>
+    username: <%= ENV['MONGODB_USERNAME'] %>
+    password: <%= ENV['MONGODB_PASSWORD'] %>
+    database: plan_api_scaffold_production
+    options:
+      skip_version_check: true
+      safe: true
+      read: :primary
